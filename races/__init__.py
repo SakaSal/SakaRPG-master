@@ -1,2 +1,2 @@
-from races.human import Human
-from races.goblin import Goblin
+from human import Human
+from goblin import Goblin

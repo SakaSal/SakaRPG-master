@@ -1,4 +1,4 @@
-from races.base import Being, Base, Human_Bonus
+from base import Being, Base, Human_Bonus
 # from gear import machete
 
 

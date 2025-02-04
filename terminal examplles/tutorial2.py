@@ -16,7 +16,7 @@ def main(stdscr):
         # stdscr.clear()
         color = BLUE_AND_YELLOW
 
-        if i % 4 == 0:
+        if i % 2 == 0:
             color = GREEN_AND_BLACK
 
         stdscr.addstr(f"Count: {i}", color)

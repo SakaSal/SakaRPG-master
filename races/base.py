@@ -1,7 +1,6 @@
 Base = 5
 Human_Bonus = {"intel": 7, "skill": 7, "dex": 7}
 Goblin_Bonus = {"intel": 7, "dex": 7, "res": 7}
-# this is a note
 
 
 class Being:

@@ -1,0 +1,85 @@
+import curses
+
+# Initialize curses
+stdscr = curses.initscr()
+
+# Turn off echoing of keys
+curses.noecho()
+
+# React to keys instantly, without requiring Enter
+curses.cbreak()
+
+# Enable keypad for special keys
+stdscr.keypad(True)
+
+# End curses application
+curses.nocbreak()
+stdscr.keypad(False)
+curses.echo()
+curses.endwin()
+
+# Window Management
+# Get screen dimensions
+height, width = stdscr.getmaxyx()
+
+# Create a new window
+window = curses.newwin(height, width, start_y, start_x)
+
+# Refresh a window to show changes
+window.refresh()
+
+# Delete a window
+del window
+
+
+# Input
+
+# Get a single character
+key = stdscr.getch()
+
+# Get a string
+string = stdscr.getstr()
+
+# Non-blocking getch
+stdscr.nodelay(1)
+key = stdscr.getch()
+stdscr.nodelay(0)
+
+
+# Output
+
+# Add a string at current cursor position
+stdscr.addstr("Hello, world!")
+
+# Add a string at specific coordinates
+stdscr.addstr(y, x, "Hello, world!")
+
+# Clear the screen
+stdscr.clear()
+
+# Attributes and Colors
+
+# Define color pairs (must be done after initscr())
+curses.start_color()
+curses.init_pair(1, curses.COLOR_RED, curses.COLOR_BLACK)
+
+# Use attributes
+stdscr.attron(curses.color_pair(1) | curses.A_BOLD)
+stdscr.addstr(0, 0, "Red and bold text")
+stdscr.attroff(curses.color_pair(1) | curses.A_BOLD)
+# Special Keys
+
+# Example: Handling arrow keys
+key = stdscr.getch()
+if key == curses.KEY_UP:
+    # Handle up arrow
+    pass
+elif key == curses.KEY_DOWN:
+    # Handle down arrow
+    pass
+elif key == curses.KEY_LEFT:
+    # Handle left arrow
+    pass
+elif key == curses.KEY_RIGHT:
+    # Handle right arrow
+    pass

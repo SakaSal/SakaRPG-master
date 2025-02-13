@@ -22,9 +22,9 @@ def main(stdscr):
     # (curses.LINES -1, curses.ROWS - 1) coordinates of the screen
 
     for i in range(50):
-        # (padrow, padcol, topwinrow, topwincol, botwinrow, botwincol )
         stdscr.clear()
         stdscr.refresh()
+        # (padrow, padcol, topwinrow, topwincol, botwinrow, botwincol )
         pad.refresh(0, i, 5, i, 10, 25 + i)
         time.sleep(0.2)
     stdscr.getch()

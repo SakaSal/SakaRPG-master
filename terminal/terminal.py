@@ -1,5 +1,4 @@
 import curses
-import time
 from curses import wrapper
 
 
@@ -59,6 +58,8 @@ def main(stdscr):
             y -= 1
         elif key == "KEY_DOWN":
             y += 1
+        elif key == "2":
+            break
 
         pad.addstr(y, x, "0", GREEN_AND_BLACK)
         pad.refresh(y - 5, x - 5, 10, 10, 20, 20)

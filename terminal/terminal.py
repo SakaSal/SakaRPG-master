@@ -49,7 +49,6 @@ def main(stdscr):
             key = stdscr.getkey()
         except:
             key = None
-
         if key == "KEY_LEFT":
             x -= 1
         elif key == "KEY_RIGHT":

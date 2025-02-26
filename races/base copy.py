@@ -8,7 +8,13 @@ class Being:
 
     number_of_beings = 0
 
+<<<<<<< HEAD
     def __init__(self,name,
+=======
+    def __init__(
+        self,
+        name,
+>>>>>>> f683dce6605c4c8ff7c6a77940e95d2aec2d2af3
         stren=Base,
         intel=Base,
         skill=Base,

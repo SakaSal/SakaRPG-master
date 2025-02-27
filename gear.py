@@ -11,8 +11,6 @@ class Gear:
     def __repr__(self):
         return repr(self.name)
 
-    # write function that tells class what to return when called as a string
-
 
 class Sword(Gear):
 
@@ -20,8 +18,12 @@ class Sword(Gear):
         super().__init__(name, attributes, quip)
 
 
-machete = Sword('Machete', 'hand', {'attack': 3},
-                'A utilitarian blade that strikes \
-fear in to the hearts of the burgoise')
+machete = Sword(
+    "Machete",
+    "hand",
+    {"attack": 3},
+    "A utilitarian blade that strikes \
+fear in to the hearts of the burgoise",
+)
 
 # print(machete.quip)

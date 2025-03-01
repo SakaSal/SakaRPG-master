@@ -6,10 +6,8 @@ from base import Base, Being, Goblin_Bonus
 class Goblin(Being):
     number_of_goblins = 0
 
-    def __init__(self, name, stren=Base, intel=Base, skill=Base,
-                 res=Base, cha=Base, fort=Base, dex=Base, spd=Base):
-        super().__init__(name, stren, intel, skill,
-                         res, cha, fort, dex, spd)
+    def __init__(self, name, stren=Base, intel=Base, skill=Base, fort=Base, dex=Base, spd=Base):
+        super().__init__(name, stren, intel, skill, fort, dex, spd)
         for bonus in Goblin_Bonus:
             self.set_atrib(bonus, Goblin_Bonus[bonus])
         self.number_of_goblins += 1

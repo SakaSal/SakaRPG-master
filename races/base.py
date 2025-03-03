@@ -1,6 +1,6 @@
 Base = 5
 Human_Bonus = {"intel": 7, "skill": 7, "dex": 7}
-Goblin_Bonus = {"intel": 7, "dex": 7, "res": 7}
+Goblin_Bonus = {"intel": 7, "dex": 7, "fort": 7}
 
 
 class Being:
@@ -14,8 +14,6 @@ class Being:
         stren=Base,
         intel=Base,
         skill=Base,
-        res=Base,
-        cha=Base,
         fort=Base,
         dex=Base,
         spd=Base,
@@ -24,24 +22,20 @@ class Being:
         self.stren = stren
         self.intel = intel
         self.skill = skill
-        self.res = res
-        self.cha = cha
         self.fort = fort
         self.dex = dex
         self.spd = spd
         self._attack = self.stren + self.skill
         self._magic = self.intel + self.skill
         self._deffense = self.fort + self.stren
-        self._magic_deffense = self.fort + self.res
+        self._magic_deffense = self.fort + self.intel
         self._initiative = self.spd + self.dex
-        self.hp = Base + self.fort + self.res
+        self.hp = Base + self.fort + self.stren
         self.hit = self.dex + self.skill
         self.atribs = {
             "stren": self.stren,
             "intel": self.intel,
             "skill": self.skill,
-            "res": self.res,
-            "cha": self.cha,
             "fort": self.fort,
             "dex": self.dex,
             "spd": self.spd,
@@ -74,9 +68,9 @@ class Being:
         self.atribs["attack"] = self.atribs["stren"] + self.atribs["skill"]
         self.atribs["magic"] = self.atribs["intel"] + self.atribs["skill"]
         self.atribs["deffense"] = self.atribs["stren"] + self.atribs["fort"]
-        self.atribs["magic deffense"] = self.atribs["fort"] + self.atribs["res"]
+        self.atribs["magic deffense"] = self.atribs["fort"] + self.atribs["intel"]
         self.atribs["init"] = self.atribs["spd"] + self.atribs["dex"]
-        self.atribs["hp"] = Base + self.atribs["fort"] + self.atribs["res"]
+        self.atribs["hp"] = Base + self.atribs["fort"] + self.atribs["stren"]
         self.atribs["hit"] = self.atribs["dex"] + self.atribs["skill"]
 
     def equip_item(self, item, place):

@@ -1,6 +1,8 @@
-from base import Base, Being, Goblin_Bonus
+from .base import Base, Being
 
 # from gear import machete
+
+Goblin_Bonus = {"intel": 7, "dex": 7, "fort": 7}
 
 
 class Goblin(Being):
@@ -13,10 +15,3 @@ class Goblin(Being):
         for bonus in Goblin_Bonus:
             self.set_atrib(bonus, Goblin_Bonus[bonus])
         self.number_of_goblins += 1
-
-
-# this code should be moved some where else
-sal = Goblin("Sal")
-# sal.equip_item(machete, 'right_hand')
-print(sal.atribs)
-print(sal.gear)

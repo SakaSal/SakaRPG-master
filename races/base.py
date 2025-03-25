@@ -1,6 +1,5 @@
 Base = 5
 Human_Bonus = {"intel": 7, "skill": 7, "dex": 7}
-Goblin_Bonus = {"intel": 7, "dex": 7, "fort": 7}
 
 
 class Being:
@@ -82,10 +81,9 @@ class Being:
     def set_bonus(self, race_bonus):
         for bonus in race_bonus:
             self.set_atrib(bonus, race_bonus[bonus])
-            
+
     def fight(self, classb):
         print(f"{self.name}'s hp is {self.hp}, {classb.name}'s hp is {classb.hp}")
-
 
     @classmethod
     def add_beings(cls, n):

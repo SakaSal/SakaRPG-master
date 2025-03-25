@@ -1,6 +1,8 @@
-from base import Base, Being, Human_Bonus
+from .base import Base, Being
 
 # from gear import machete
+
+Human_Bonus = {"intel": 7, "skill": 7, "dex": 7}
 
 
 class Human(Being):
@@ -13,9 +15,3 @@ class Human(Being):
         for bonus in Human_Bonus:
             self.set_atrib(bonus, Human_Bonus[bonus])
         self.number_of_humans += 1
-
-
-sal = Human("Sal")
-# sal.equip_item(machete, 'right_hand')
-print(sal.atribs)
-print(sal.gear)

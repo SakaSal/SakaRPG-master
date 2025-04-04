@@ -1,21 +1,22 @@
 class Gear:
 
-    def __init__(self, name, attributes, quip):
+    def __init__(self, name, place, attributes, quip):
         self.name = name
         self.attributes = attributes
+        self.place = place
         self.quip = quip
 
     def __str__(self):
-        return self.name
+        return f"{self.name} : {self.quip}"
 
     def __repr__(self):
-        return repr(self.name)
+        return repr(self.name, self.attributes, self.quip)
 
 
 class Sword(Gear):
 
-    def __init__(self, name, hand, attributes, quip):
-        super().__init__(name, attributes, quip)
+    def __init__(self, name, place, attributes, quip):
+        super().__init__(name, place, attributes, quip)
 
 
 machete = Sword(

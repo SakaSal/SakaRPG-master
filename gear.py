@@ -10,7 +10,7 @@ class Gear:
         return f"{self.name} : {self.quip}"
 
     def __repr__(self):
-        return repr(self.name, self.attributes, self.quip)
+        return f"{self.name},{self.place}, {self.attributes}, {self.quip}"
 
 
 class Sword(Gear):

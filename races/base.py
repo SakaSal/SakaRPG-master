@@ -65,7 +65,7 @@ class Being:
 
     def update_atribs(self):
         for item in self.gear:
-            print(item)
+            print(self.gear[item])
         self.atribs["attack"] = self.atribs["stren"] + self.atribs["skill"]
         self.atribs["magic"] = self.atribs["intel"] + self.atribs["skill"]
         self.atribs["deffense"] = self.atribs["stren"] + self.atribs["fort"]

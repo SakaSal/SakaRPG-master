@@ -64,8 +64,17 @@ class Being:
         self.update_atribs()
 
     def update_atribs(self):
-        for item in self.gear:
-            print(self.gear[item])
+        """
+        this updates the attributs
+        functionality to update them based on equipment is
+        part of this method but hsould be moved to it's own method
+        """
+        for slot in self.gear:
+            if self.gear[slot]:
+                item = self.gear[slot]
+                item_attributes = item.attributes
+                if item_attributes:
+                    print(item_attributes)
         self.atribs["attack"] = self.atribs["stren"] + self.atribs["skill"]
         self.atribs["magic"] = self.atribs["intel"] + self.atribs["skill"]
         self.atribs["deffense"] = self.atribs["stren"] + self.atribs["fort"]

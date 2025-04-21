@@ -3,9 +3,8 @@ from races import Goblin, Human
 
 sal = Goblin("sal")
 # jules = Human("jules")
+print(sal.atribs["attack"])
 sal.equip_item(machete, "right_hand")
-# print(sal.atribs)
-item = sal.gear["right_hand"].attributes
-# print(item)
+print(sal.atribs["attack"])
 # print(jules.atribs)
 # print(jules.gear)

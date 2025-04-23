@@ -73,8 +73,8 @@ class Being:
             if self.gear[slot]:
                 item = self.gear[slot]
                 item_attributes = item.attributes
-                if item_attributes:
-                    print(item_attributes)
+                if item_attributes["attack"]:
+                    print("si")
         self.atribs["attack"] = self.atribs["stren"] + self.atribs["skill"]
         self.atribs["magic"] = self.atribs["intel"] + self.atribs["skill"]
         self.atribs["deffense"] = self.atribs["stren"] + self.atribs["fort"]

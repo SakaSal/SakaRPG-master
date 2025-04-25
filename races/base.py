@@ -64,6 +64,10 @@ class Being:
         self.update_atribs()
 
     def update_atribs(self):
+        """
+        first sets the carahcters attrributes based on the stats
+        before adjusting based on equipped items
+        """
         self.atribs["attack"] = self.atribs["stren"] + self.atribs["skill"]
         self.atribs["magic"] = self.atribs["intel"] + self.atribs["skill"]
         self.atribs["deffense"] = self.atribs["stren"] + self.atribs["fort"]
@@ -71,11 +75,7 @@ class Being:
         self.atribs["init"] = self.atribs["spd"] + self.atribs["dex"]
         self.atribs["hp"] = Base + self.atribs["fort"] + self.atribs["stren"]
         self.atribs["hit"] = self.atribs["dex"] + self.atribs["skill"]
-        """
-        this updates the attributs
-        functionality to update them based on equipment is
-        part of this method but should be moved to it's own method
-        """
+        # sort through equipment to adjust atributes
         for slot in self.gear:
             if self.gear[slot]:
                 item = self.gear[slot]

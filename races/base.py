@@ -64,17 +64,6 @@ class Being:
         self.update_atribs()
 
     def update_atribs(self):
-        """
-        this updates the attributs
-        functionality to update them based on equipment is
-        part of this method but hsould be moved to it's own method
-        """
-        for slot in self.gear:
-            if self.gear[slot]:
-                item = self.gear[slot]
-                item_attributes = item.attributes
-                if item_attributes["attack"]:
-                    print("si")
         self.atribs["attack"] = self.atribs["stren"] + self.atribs["skill"]
         self.atribs["magic"] = self.atribs["intel"] + self.atribs["skill"]
         self.atribs["deffense"] = self.atribs["stren"] + self.atribs["fort"]
@@ -82,6 +71,25 @@ class Being:
         self.atribs["init"] = self.atribs["spd"] + self.atribs["dex"]
         self.atribs["hp"] = Base + self.atribs["fort"] + self.atribs["stren"]
         self.atribs["hit"] = self.atribs["dex"] + self.atribs["skill"]
+        """
+        this updates the attributs
+        functionality to update them based on equipment is
+        part of this method but should be moved to it's own method
+        """
+        for slot in self.gear:
+            if self.gear[slot]:
+                item = self.gear[slot]
+                item_attributes = item.attributes
+                self.atribs.update(
+                    {
+                        key: (
+                            self.atribs[key] + item_attributes[key]
+                            if key in item_attributes
+                            else self.atribs[key]
+                        )
+                        for key in self.atribs
+                    }
+                )
 
     def equip_item(self, item, place):
         self.gear[place] = item

@@ -1,3 +1,5 @@
+import time
+
 Base = 5
 Human_Bonus = {"intel": 7, "skill": 7, "dex": 7}
 
@@ -104,6 +106,27 @@ class Being:
 
     def fight(self, classb):
         print(f"{self.name}'s hp is {self.hp}, {classb.name}'s hp is {classb.hp}")
+        in_fight = True
+        while in_fight:
+            dmg = self.atribs["attack"] - classb.atribs["deffense"]
+            classb_dmg = classb.atribs["attack"] - self.atribs["deffense"]
+            classb.atribs["hp"] -= dmg
+            print(
+                f"{self.name} strikes a blow dealing {dmg} dmg to {classb.name}, {classb.name}'s hp is {classb.atribs["hp"]}"
+            )
+            time.sleep(0.5)
+            if classb.atribs["hp"] <= 0:
+                in_fight = False
+                print(f"{classb.name} is defeated")
+
+            if in_fight:
+                self.atribs["hp"] -= classb_dmg
+                print(
+                    f"{classb.name} strikes a blow dealing {classb_dmg} dmg to {self.name}, {self.name}'s hp is {self.atribs["hp"]}"
+                )
+                time.sleep(0.5)
+        classb.update_atribs()
+        self.update_atribs()
 
     @classmethod
     def add_beings(cls, n):

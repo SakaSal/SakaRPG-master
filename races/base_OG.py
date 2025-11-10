@@ -11,9 +11,9 @@ class Being:
         name,
         stren=Base,
         intel=Base,
-        skill=Base,
+        shoot_skill=Base,
+        melee_skill=Base,
         res=Base,
-        cha=Base,
         fort=Base,
         dex=Base,
         spd=Base,
@@ -21,9 +21,9 @@ class Being:
         self.name = name
         self.stren = stren
         self.intel = intel
-        self.skill = skill
+        self.shoot_skill = shoot_skill
+        self.melee_skill = melee_skill
         self.res = res
-        self.cha = cha
         self.fort = fort
         self.dex = dex
         self.spd = spd
@@ -37,9 +37,9 @@ class Being:
         self.atribs = {
             "stren": self.stren,
             "intel": self.intel,
-            "skill": self.skill,
+            "shoot_skill": self.shoot_skill,
+            "melee_skill": self.melee_skill,
             "res": self.res,
-            "cha": self.cha,
             "fort": self.fort,
             "dex": self.dex,
             "spd": self.spd,
@@ -75,7 +75,8 @@ class Being:
         self.atribs["magic deffense"] = self.atribs["fort"] + self.atribs["res"]
         self.atribs["init"] = self.atribs["spd"] + self.atribs["dex"]
         self.atribs["hp"] = Base + self.atribs["fort"] + self.atribs["res"]
-        self.atribs["hit"] = self.atribs["dex"] + self.atribs["skill"]
+        self.atribs["melee_hit"] = self.atribs["dex"] + self.atribs["melee_skill"]
+        self.atribs["shoot_hit"] = self.atribs["dex"] + self.atribs["shoot_skill"]
 
     def equip_item(self, item, place):
         self.gear[place] = item

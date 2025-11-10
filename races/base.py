@@ -14,7 +14,8 @@ class Being:
         name,
         stren=Base,
         intel=Base,
-        skill=Base,
+        shoot_skill=Base,
+        melee_skill=Base,
         fort=Base,
         dex=Base,
         spd=Base,
@@ -22,30 +23,32 @@ class Being:
         self.name = name
         self.stren = stren
         self.intel = intel
-        self.skill = skill
+        self.shoot_skill = shoot_skill
+        self.melee_skill = melee_skill
         self.fort = fort
         self.dex = dex
         self.spd = spd
-        self._attack = self.stren + self.skill
-        self._magic = self.intel + self.skill
+        self._attack = self.stren + self.melee_skill
+        self._magic = self.intel
         self._deffense = self.fort + self.stren
         self._magic_deffense = self.fort + self.intel
         self._initiative = self.spd + self.dex
         self.hp = Base + self.fort + self.stren
-        self.hit = self.dex + self.skill
+        self.melee_hit = self.dex + self.melee_skill
         self.atribs = {
             "stren": self.stren,
             "intel": self.intel,
-            "skill": self.skill,
+            "shoot_skill": self.shoot_skill,
+            "melee_skill": self.melee_skill,
             "fort": self.fort,
             "dex": self.dex,
             "spd": self.spd,
             "hp": self.hp,
-            "attack": self._attack,
+            "melee_attack": self._attack,
             "deffense": self._deffense,
             "magic deffense": self._magic_deffense,
             "init": self._initiative,
-            "hit": self.hit,
+            "melee_hit": self.melee_hit,
             "magic": self._magic,
         }
         self.gear = {"head": None, "right_hand": None, "left_hand": None}
@@ -70,13 +73,14 @@ class Being:
         first sets the carahcters attrributes based on the stats
         before adjusting based on equipped items
         """
-        self.atribs["attack"] = self.atribs["stren"] + self.atribs["skill"]
-        self.atribs["magic"] = self.atribs["intel"] + self.atribs["skill"]
+        self.atribs["melee_damage"] = self.atribs["stren"] + self.atribs["melee_skill"]
+        self.atribs["magic"] = self.atribs["intel"]
         self.atribs["deffense"] = self.atribs["stren"] + self.atribs["fort"]
         self.atribs["magic deffense"] = self.atribs["fort"] + self.atribs["intel"]
         self.atribs["init"] = self.atribs["spd"] + self.atribs["dex"]
         self.atribs["hp"] = Base + self.atribs["fort"] + self.atribs["stren"]
-        self.atribs["hit"] = self.atribs["dex"] + self.atribs["skill"]
+        self.atribs["melee_hit"] = self.atribs["dex"] + self.atribs["melee_skill"]
+        self.atribs["shoot_hit"] = self.atribs["dex"] + self.atribs["shoot_skill"]
         # sort through equipment to adjust atributes
         for slot in self.gear:
             if self.gear[slot]:

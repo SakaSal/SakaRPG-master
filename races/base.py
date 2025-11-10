@@ -28,7 +28,7 @@ class Being:
         self.fort = fort
         self.dex = dex
         self.spd = spd
-        self._attack = self.stren + self.melee_skill
+        self._melee_damage = self.stren + self.melee_skill
         self._magic = self.intel
         self._deffense = self.fort + self.stren
         self._magic_deffense = self.fort + self.intel
@@ -44,12 +44,13 @@ class Being:
             "dex": self.dex,
             "spd": self.spd,
             "hp": self.hp,
-            "melee_attack": self._attack,
+            "melee_damage": self._melee_damage,
             "deffense": self._deffense,
             "magic deffense": self._magic_deffense,
             "init": self._initiative,
             "melee_hit": self.melee_hit,
             "magic": self._magic,
+            "melee_attacks": 0
         }
         self.gear = {"head": None, "right_hand": None, "left_hand": None}
         print(f"{self.name} is born!")
@@ -79,8 +80,8 @@ class Being:
         self.atribs["magic deffense"] = self.atribs["fort"] + self.atribs["intel"]
         self.atribs["init"] = self.atribs["spd"] + self.atribs["dex"]
         self.atribs["hp"] = Base + self.atribs["fort"] + self.atribs["stren"]
-        self.atribs["melee_hit"] = self.atribs["dex"] + self.atribs["melee_skill"]
-        self.atribs["shoot_hit"] = self.atribs["dex"] + self.atribs["shoot_skill"]
+        self.atribs["melee_hit"] = int((self.atribs["dex"] + self.atribs["melee_skill"])/2)
+        self.atribs["shoot_hit"] = int((self.atribs["dex"] + self.atribs["shoot_skill"])/2)
         # sort through equipment to adjust atributes
         for slot in self.gear:
             if self.gear[slot]:
@@ -112,8 +113,8 @@ class Being:
         print(f"{self.name}'s hp is {self.hp}, {classb.name}'s hp is {classb.hp}")
         in_fight = True
         while in_fight:
-            dmg = self.atribs["attack"] - classb.atribs["deffense"]
-            classb_dmg = classb.atribs["attack"] - self.atribs["deffense"]
+            dmg = self.atribs["melee_damage"] - classb.atribs["deffense"]
+            classb_dmg = classb.atribs["melee_damage"] - self.atribs["deffense"]
             classb.atribs["hp"] -= dmg
             print(
                 f"{self.name} strikes a blow dealing {dmg} dmg to {classb.name}, {classb.name}'s hp is {classb.atribs["hp"]}"

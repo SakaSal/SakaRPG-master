@@ -22,9 +22,7 @@ class Sword(Gear):
 machete = Sword(
     "Machete",
     "hand",
-    {"attack": 3},
+    {"melee_attack": 3},
     "A utilitarian blade that strikes \
-fear in to the hearts of the burgoise",
-)
-
+fear in to the hearts of the burgoise",)
 # print(machete.quip)

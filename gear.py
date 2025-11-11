@@ -39,4 +39,11 @@ machete = Sword(
 fear in to the hearts of the burgoise",
 )
 
+combat_knife = Sword(
+    "Combat knife",
+    "hand",
+    {"melee_damage": 6, "melee_attacks": 4},
+    "Now THIS, this is a Knife!"
+)
+
 # print(machete.quip)

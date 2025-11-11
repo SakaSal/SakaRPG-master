@@ -1,12 +1,12 @@
 import random
 import time
 
-from gear import fist, machete
+from gear import fist, machete, combat_knife
 from races import Goblin, Human
 
 sal = Goblin("sal")
 jules = Human("jules")
-sal.equip_item(machete, "right_hand")
+sal.equip_item(combat_knife, "right_hand")
 jules.equip_item(fist, "right_hand")
 print(jules.atribs)
 print(sal.atribs)
@@ -19,26 +19,11 @@ def fight(attacker, defender):
     )
     in_fight = True
     # a Variable to keep track of the number of attacks
-    attacker_strikes = 0
-    defender_strikes = 0
-
-    for attacks in range(attacker.atribs["melee_attacks"]):
-        roll = random.randint(1, 10)
-        if roll > 10 - attacker.atribs["melee_hit"]:
-            attacker_strikes += 1
-    print(f"attacker has {attacker_strikes} successful strike(s)")
-
-    for attacks in range(defender.atribs["melee_attacks"]):
-        roll = random.randint(1, 10)
-        if roll > 10 - defender.atribs["melee_hit"]:
-            defender_strikes += 1
-    print(f"defender has {defender_strikes} successful strike(s)")
-
+    attacker_strikes, defender_strikes = roll_attacks(attacker, defender, "melee")
+ 
     while in_fight:
         # set the damage of the attacker and defender
-        attacker_damage = attacker.atribs["melee_damage"] - defender.atribs["deffense"]
-        defender_damage = defender.atribs["melee_damage"] - attacker.atribs["deffense"]
-
+        attacker_damage, defender_damage = return_damage(attacker, defender, "melee")
         # begin the fight
         # check if attacker has strikes
         if attacker_strikes > 0:
@@ -79,6 +64,33 @@ def fight(attacker, defender):
                 print(f"{attacker.name} is defeated")
         else:
             in_fight = False
+
+def roll_attacks(attacker, defender, type):
+    attacker_strikes = 0
+    defender_strikes = 0
+    if type == "melee":
+
+        for attacks in range(attacker.atribs["melee_attacks"]):
+            roll = random.randint(1, 10)
+            if roll > 10 - attacker.atribs["melee_hit"]:
+                attacker_strikes += 1
+        print(f"attacker has {attacker_strikes} successful strike(s)")
+
+        for attacks in range(defender.atribs["melee_attacks"]):
+            roll = random.randint(1, 10)
+            if roll > 10 - defender.atribs["melee_hit"]:
+                defender_strikes += 1
+        print(f"defender has {defender_strikes} successful strike(s)")
+    
+    return attacker_strikes, defender_strikes
+
+def return_damage(attacker, defender, type):
+        if type =="melee":
+            attacker_damage = attacker.atribs["melee_damage"] - defender.atribs["deffense"]
+            defender_damage = defender.atribs["melee_damage"] - attacker.atribs["deffense"]
+        
+        return attacker_damage, defender_damage
+    
 
 
 fight(sal, jules)

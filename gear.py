@@ -12,14 +12,17 @@ class Gear:
     def __repr__(self):
         return f"{self.name},{self.place}, {self.attributes}, {self.quip}"
 
+
 class Fists(Gear):
     def __init__(self, name, place, attributes, quip):
         super().__init__(name, place, attributes, quip)
-    
+
+
 class Sword(Gear):
 
     def __init__(self, name, place, attributes, quip):
         super().__init__(name, place, attributes, quip)
+
 
 fist = Fists(
     "fist",
@@ -31,7 +34,7 @@ fist = Fists(
 machete = Sword(
     "Machete",
     "hand",
-    {"melee_damage": 4, "melee_attacks":3},
+    {"melee_damage": 4, "melee_attacks": 3},
     "A utilitarian blade that strikes \
 fear in to the hearts of the burgoise",
 )

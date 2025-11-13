@@ -31,10 +31,11 @@ def fight_terminal(stdscr, attacker, defender):
     attacker_damage, defender_damage = return_damage(attacker, defender, "melee")
 
     # set the in_fight variable
+    stdscr.getch()
     in_fight = True
 
     # start fight loop
-    while in_fight:
+    while in_fight==True:
         # battle prompt sans HP box
         stdscr.addstr(1, 0, "[FIGHT]", fight_color)
         stdscr.addstr(
@@ -45,24 +46,30 @@ def fight_terminal(stdscr, attacker, defender):
         )
 
         # add HP boxes
-        hp_win_attacker = curses.newwin(1, attacker_hp, 3, 11)
-        hp_win_attacker.bkgd("=", hp_color)
-        hp_win_attacker.addstr(f" HP: {attacker_hp}")
+        hp_bar_attacker = curses.newwin(1, 1 if attacker_hp <= 0 else attacker_hp, 3, 16)
+        hp_bar_attacker.bkgd("=", hp_color)
+        hp_text_attacker = curses.newwin(1,6,3,11)
+        attacker_hp = 0 if attacker_hp <= 0 else attacker_hp
+        hp_text_attacker.addstr(f"HP:{attacker_hp}")
+        
+    
+        hp_bar_defender = curses.newwin(1, 1 if defender_hp <= 0 else defender_hp, 6, 16)
+        hp_bar_defender.bkgd("=", hp_color)
+        hp_text_defender = curses.newwin(1,6,6,11)
+        defender_hp = 0 if defender_hp <= 0 else defender_hp
+        hp_text_defender.addstr(f"HP:{defender_hp}")
 
-        hp_win_defender = curses.newwin(1, defender_hp, 6, 11)
-        hp_win_defender.bkgd("=", hp_color)
-        hp_win_defender.addstr(f" HP: {defender_hp}")
 
         # fight bar
-        fight_bar = curses.newwin(1, 20, 8, 0)
+        fight_bar = curses.newwin(1, 30, 8, 0)
         fight_bar.bkgd("+", fight_color)
 
         # refresh the windows
-        screens = [stdscr, hp_win_attacker, hp_win_defender, fight_bar]
+        screens = [stdscr, hp_bar_attacker,hp_text_attacker, hp_bar_defender,hp_text_defender, fight_bar]
         refresh_all(screens)
 
+        #start attacker sub-loop
         if attacker_strikes > 0:
-
             fight_bar.addstr("[ATTACKER]")
             fight_bar.refresh()
             stdscr.addstr(9, 0, f"[1]:Attack [2] Parry\n", attacker_color)
@@ -73,8 +80,75 @@ def fight_terminal(stdscr, attacker, defender):
                 stdscr.addstr(
                     12,
                     0,
-                    f"{attacker.name} strikes a blow dealing {attacker_damage} dmg to {defender.name}, {defender.name}'s hp is {defender.atribs["hp"]}",
+                    f"{attacker.name} strikes a blow dealing {attacker_damage} dmg to {defender.name}, {defender.name}'s hp is {0 if defender_hp <= 0 else defender_hp}",
                 )
+            if choice == "2":
+                attacker_strikes -= 1
+                defender_strikes -= 1
+                stdscr.addstr(12, 0 , f"{attacker.name} parry's the next attack",)
+        if defender_hp <= 0:
+            in_fight =False
+            break
+        
+        stdscr.addstr(1, 0, "[FIGHT]", fight_color)
+        stdscr.addstr(
+            3, 0, f"[ATTACKER]\nstrikes remaining: {attacker_strikes}\n", attacker_color
+        )
+        stdscr.addstr(
+            6, 0, f"[DEFENDER]\nstrikes remaining: {defender_strikes}\n", defender_color
+        )
+
+        # add HP boxes
+        hp_bar_attacker = curses.newwin(1, 1 if attacker_hp <= 0 else attacker_hp, 3, 16)
+        hp_bar_attacker.bkgd("=", hp_color)
+        hp_text_attacker = curses.newwin(1,6,3,11)
+        attacker_hp = 0 if attacker_hp <= 0 else attacker_hp
+        hp_text_attacker.addstr(f"HP:{attacker_hp}")
+        
+    
+        hp_bar_defender = curses.newwin(1, 1 if defender_hp <= 0 else defender_hp, 6, 16)
+        hp_bar_defender.bkgd("=", hp_color)
+        hp_text_defender = curses.newwin(1,6,6,11)
+        defender_hp = 0 if defender_hp <= 0 else defender_hp
+        hp_text_defender.addstr(f"HP:{defender_hp}")
+
+
+        # fight bar
+        fight_bar = curses.newwin(1, 30, 8, 0)
+        fight_bar.bkgd("+", fight_color)
+
+        # refresh the windows
+        screens = [stdscr, hp_bar_attacker,hp_text_attacker, hp_bar_defender,hp_text_defender, fight_bar]
+        refresh_all(screens)
+        
+        #start defender subloop
+        if defender_strikes > 0:
+            fight_bar.erase()
+            fight_bar.addstr("[DEFENDER]")
+            fight_bar.refresh()
+            stdscr.addstr(9, 0, f"[1]:Attack [2] Parry\n", defender_color)
+            choice = stdscr.getkey()
+            if choice == "1":
+                defender_strikes -= 1
+                attacker_hp -= defender_damage
+                stdscr.addstr(
+                    12,
+                    0,
+                    f"{defender.name} strikes a blow dealing {defender_damage} dmg to {attacker.name}, {attacker.name}'s hp is {0 if attacker_hp <= 0 else attacker_hp}",
+                )
+            if choice == "2":
+                attacker_strikes -= 1
+                defender_strikes -= 1
+                stdscr.addstr(12, 0 , f"{defender.name} parry's the next attack",)
+        if attacker_hp <= 0:
+            in_fight =False
+        if defender_strikes == 0 and attacker_strikes ==0:
+            in_fight = False
+        
+
+            
+    
+    stdscr.getch()
 
     curses.endwin()
 
@@ -86,7 +160,7 @@ def refresh_all(screens):
 
 """
     stdscr.refresh()
-    hp_win_attacker.refresh()
-    hp_win_defender.refresh()
+    hp_bar_attacker.refresh()
+    hp_bar_defender.refresh()
     fight_bar.refresh()
 """

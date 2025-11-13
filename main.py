@@ -9,7 +9,7 @@ from terminal import fight_terminal
 
 sal = Goblin("sal")
 jules = Human("jules")
-sal.equip_item(combat_knife, "right_hand")
+sal.equip_item(machete, "right_hand")
 jules.equip_item(fist, "right_hand")
 # print(jules.atribs)
 # print(sal.atribs)

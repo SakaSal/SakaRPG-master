@@ -48,7 +48,7 @@ def fight_terminal(stdscr, attacker, defender):
         # add HP boxes
         hp_bar_attacker = curses.newwin(1, 1 if attacker_hp <= 0 else attacker_hp, 3, 16)
         hp_bar_attacker.bkgd("=", hp_color)
-        hp_text_attacker = curses.newwin(1,6,3,11)
+        hp_text_attacker = curses.newwin(1, 6, 3, 11)
         attacker_hp = 0 if attacker_hp <= 0 else attacker_hp
         hp_text_attacker.addstr(f"HP:{attacker_hp}")
         

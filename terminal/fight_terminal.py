@@ -44,38 +44,12 @@ def fight_terminal(stdscr, attacker, defender):
         stdscr.addstr(
             6, 0, f"[DEFENDER]\nstrikes remaining: {defender_strikes}\n", defender_color
         )
-
-        # add HP boxes
-        hp_bar_attacker = curses.newwin(
-            1, 1 if attacker_hp <= 0 else attacker_hp, 3, 20
-        )
-        hp_bar_attacker.bkgd("=", hp_color)
-        hp_text_attacker = curses.newwin(1, 6, 3, 11)
-        attacker_hp = 0 if attacker_hp <= 0 else attacker_hp
-        hp_text_attacker.addstr(f"HP:{attacker_hp}")
-
-        hp_bar_defender = curses.newwin(
-            1, 1 if defender_hp <= 0 else defender_hp, 6, 20
-        )
-        hp_bar_defender.bkgd("=", hp_color)
-        hp_text_defender = curses.newwin(1, 6, 6, 11)
-        defender_hp = 0 if defender_hp <= 0 else defender_hp
-        hp_text_defender.addstr(f"HP:{defender_hp}")
-
         # fight bar
         fight_bar = curses.newwin(1, 30, 8, 0)
         fight_bar.bkgd("+", fight_color)
-
-        # refresh the windows
-        screens = [
-            stdscr,
-            hp_bar_attacker,
-            hp_text_attacker,
-            hp_bar_defender,
-            hp_text_defender,
-            fight_bar,
-        ]
-        refresh_all(screens)
+        
+        draw_screen(attacker_hp, hp_color, defender_hp, fight_color, stdscr, fight_bar)
+        
         if defender_strikes == 0 and attacker_strikes == 0:
             in_fight = False
 
@@ -113,38 +87,8 @@ def fight_terminal(stdscr, attacker, defender):
             6, 0, f"[DEFENDER]\nstrikes remaining: {defender_strikes}\n", defender_color
         )
 
-        # add HP boxes
-        hp_bar_attacker = curses.newwin(
-            1, 1 if attacker_hp <= 0 else attacker_hp, 3, 20
-        )
-        hp_bar_attacker.bkgd("=", hp_color)
-        hp_text_attacker = curses.newwin(1, 6, 3, 11)
-        attacker_hp = 0 if attacker_hp <= 0 else attacker_hp
-        hp_text_attacker.addstr(f"HP:{attacker_hp}")
-
-        hp_bar_defender = curses.newwin(
-            1, 1 if defender_hp <= 0 else defender_hp, 6, 20
-        )
-        hp_bar_defender.bkgd("=", hp_color)
-        hp_text_defender = curses.newwin(1, 6, 6, 11)
-        defender_hp = 0 if defender_hp <= 0 else defender_hp
-        hp_text_defender.addstr(f"HP:{defender_hp}")
-
-        # fight bar
-        fight_bar = curses.newwin(1, 30, 8, 0)
-        fight_bar.bkgd("+", fight_color)
-
-        # refresh the windows
-        screens = [
-            stdscr,
-            hp_bar_attacker,
-            hp_text_attacker,
-            hp_bar_defender,
-            hp_text_defender,
-            fight_bar,
-        ]
-        refresh_all(screens)
-
+        draw_screen(attacker_hp, hp_color, defender_hp, fight_color, stdscr, fight_bar)
+        
         # start defender subloop
         if defender_strikes > 0:
             fight_bar.erase()
@@ -179,6 +123,36 @@ def fight_terminal(stdscr, attacker, defender):
 def refresh_all(screens):
     for screen in screens:
         screen.refresh()
+
+
+def draw_screen(attacker_hp, hp_color, defender_hp, fight_color, stdscr, fight_bar):
+    # add HP boxes
+        hp_bar_attacker = curses.newwin(
+            1, 1 if attacker_hp <= 0 else attacker_hp, 3, 20
+        )
+        hp_bar_attacker.bkgd("=", hp_color)
+        hp_text_attacker = curses.newwin(1, 6, 3, 11)
+        attacker_hp = 0 if attacker_hp <= 0 else attacker_hp
+        hp_text_attacker.addstr(f"HP:{attacker_hp}")
+
+        hp_bar_defender = curses.newwin(
+            1, 1 if defender_hp <= 0 else defender_hp, 6, 20
+        )
+        hp_bar_defender.bkgd("=", hp_color)
+        hp_text_defender = curses.newwin(1, 6, 6, 11)
+        defender_hp = 0 if defender_hp <= 0 else defender_hp
+        hp_text_defender.addstr(f"HP:{defender_hp}")
+
+        # refresh the windows
+        screens = [
+            stdscr,
+            hp_bar_attacker,
+            hp_text_attacker,
+            hp_bar_defender,
+            hp_text_defender,
+            fight_bar
+        ]
+        refresh_all(screens)
 
 
 """

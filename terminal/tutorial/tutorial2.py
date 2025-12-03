@@ -13,7 +13,7 @@ def main(stdscr):
 
     for i in range(100):
         # experiment with removing clear command
-        # stdscr.clear()
+        stdscr.clear()
         color = BLUE_AND_YELLOW
 
         if i % 2 == 0:

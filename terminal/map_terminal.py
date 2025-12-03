@@ -30,12 +30,12 @@ def main(stdscr):
 
     player = curses.newwin(1, 1, y, x)
     player.bkgd("@", curses.A_BOLD)
-    player.refresh()
-    player.erase()
-    player.refresh()
+    #player.addstr("@")
+
     while True:
 
         key = stdscr.getkey()
+        
 
         if key == "KEY_LEFT":
             x -= 1
@@ -46,11 +46,11 @@ def main(stdscr):
         elif key == "KEY_DOWN":
             y += 1
 
-        player.clear()
-        player.refresh()
+  
         player.mvwin(y, x)
+        
         player.refresh()
-        stdscr.refresh()
+        #stdscr.refresh()
         map_win.refresh()
 
     print(tiles[(10, 3)])

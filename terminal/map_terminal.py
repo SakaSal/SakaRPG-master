@@ -15,16 +15,7 @@ def main(stdscr):
     stdscr.clear()
     tiles = {}
     map_win = curses.newwin(23, 64, 0, 40)
-    with open(map_file, "r") as f:
-
-        for y in range(23):
-            for x in range(64):
-                char = f.read(1)
-                map_win.addstr(char)
-                tiles[(x, y)] = char
-                # time.sleep(0.001)
-                stdscr.refresh()
-                map_win.refresh()
+    draw_map(map_file, 23, 64, map_win, stdscr)
 
     x, y = 40, 0
 
@@ -53,6 +44,20 @@ def main(stdscr):
     print(tiles[(10, 3)])
     stdscr.refresh()
     stdscr.getch()
+
+
+def draw_map(map_file, lines, cols, map_win, stdscr):
+
+    with open(map_file, "r") as f:
+
+        for y in range(lines):
+            for x in range(cols):
+                char = f.read(1)
+                map_win.addstr(char)
+                # tiles[(x, y)] = char
+                # time.sleep(0.001)
+                stdscr.refresh()
+                map_win.refresh()
 
 
 wrapper(main)

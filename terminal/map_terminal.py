@@ -8,14 +8,15 @@ script_dir = Path(__file__).parent
 
 # Construct the absolute path to the map file
 map_file = script_dir.parent / "ASCII" / "maps" / "map1.txt"
+tiles = {}
 
 
 def main(stdscr):
 
     stdscr.clear()
-    tiles = {}
+
     map_win = curses.newwin(23, 64, 0, 40)
-    draw_map(map_file, 23, 64, map_win, stdscr)
+    init_map(map_file, 23, 64, map_win, stdscr)
 
     x, y = 40, 0
 
@@ -36,17 +37,18 @@ def main(stdscr):
             y -= 1
         elif key == "KEY_DOWN":
             y += 1
+
         player.mvwin(y, x)
+        map_win.erase()
+        draw_map(map_file, 23, 64, map_win, stdscr)
         player.refresh()
-        stdscr.refresh()
-        map_win.refresh()
 
     print(tiles[(10, 3)])
     stdscr.refresh()
     stdscr.getch()
 
 
-def draw_map(map_file, lines, cols, map_win, stdscr):
+def init_map(map_file, lines, cols, map_win, stdscr):
 
     with open(map_file, "r") as f:
 
@@ -54,10 +56,19 @@ def draw_map(map_file, lines, cols, map_win, stdscr):
             for x in range(cols):
                 char = f.read(1)
                 map_win.addstr(char)
-                # tiles[(x, y)] = char
-                # time.sleep(0.001)
+                tiles[(x, y)] = char
+                time.sleep(0.001)
                 stdscr.refresh()
                 map_win.refresh()
+
+
+def draw_map(map_file, lines, cols, map_win, stdscr):
+
+    with open(map_file, "r") as f:
+        char = f.read()
+        map_win.addstr(char)
+        stdscr.refresh()
+        map_win.refresh()
 
 
 wrapper(main)

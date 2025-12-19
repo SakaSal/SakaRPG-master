@@ -26,9 +26,7 @@ def main(stdscr):
     player.refresh()
 
     while True:
-
         key = stdscr.getkey()
-
         if key == "KEY_LEFT":
             x -= 1
         elif key == "KEY_RIGHT":
@@ -37,33 +35,27 @@ def main(stdscr):
             y -= 1
         elif key == "KEY_DOWN":
             y += 1
-
+        elif key == "Q":
+            break
+        
         player.mvwin(y, x)
-        map_win.erase()
-        draw_map(map_file, 23, 64, map_win, stdscr)
+        draw_map(map_file, map_win, stdscr)
         player.refresh()
 
-    print(tiles[(10, 3)])
-    stdscr.refresh()
-    stdscr.getch()
-
-
 def init_map(map_file, lines, cols, map_win, stdscr):
-
     with open(map_file, "r") as f:
-
         for y in range(lines):
             for x in range(cols):
                 char = f.read(1)
                 map_win.addstr(char)
                 tiles[(x, y)] = char
-                time.sleep(0.001)
+                #time.sleep(0.001)
                 stdscr.refresh()
                 map_win.refresh()
 
 
-def draw_map(map_file, lines, cols, map_win, stdscr):
-
+def draw_map(map_file, map_win, stdscr):
+    map_win.erase()
     with open(map_file, "r") as f:
         char = f.read()
         map_win.addstr(char)

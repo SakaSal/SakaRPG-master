@@ -36,10 +36,11 @@ def main(stdscr):
             y += 1
         elif key == "Q":
             break
-        
+
         player.mvwin(y, x)
         draw_map(map_file, map_win, stdscr)
         player.refresh()
+
 
 def init_map(map_file, lines, cols, map_win, stdscr):
     with open(map_file, "r") as f:

@@ -19,6 +19,7 @@ class Being:
         fort=Base,
         dex=Base,
         spd=Base,
+        points=10,
     ):
         self.name = name
         self.stren = stren
@@ -50,11 +51,12 @@ class Being:
             "init": self._initiative,
             "melee_hit": self.melee_hit,
             "magic": self._magic,
-            "melee_attacks": 0
+            "melee_attacks": 0,
         }
         self.gear = {"head": None, "right_hand": None, "left_hand": None}
         print(f"{self.name} is born!")
         self.number_of_beings += 1
+        self.points = points
 
     def get_name(self):
         return self.name
@@ -80,8 +82,12 @@ class Being:
         self.atribs["magic deffense"] = self.atribs["fort"] + self.atribs["intel"]
         self.atribs["init"] = self.atribs["spd"] + self.atribs["dex"]
         self.atribs["hp"] = Base + self.atribs["fort"] + self.atribs["stren"]
-        self.atribs["melee_hit"] = int((self.atribs["dex"] + self.atribs["melee_skill"])/2)
-        self.atribs["shoot_hit"] = int((self.atribs["dex"] + self.atribs["shoot_skill"])/2)
+        self.atribs["melee_hit"] = int(
+            (self.atribs["dex"] + self.atribs["melee_skill"]) / 2
+        )
+        self.atribs["shoot_hit"] = int(
+            (self.atribs["dex"] + self.atribs["shoot_skill"]) / 2
+        )
         # sort through equipment to adjust atributes
         for slot in self.gear:
             if self.gear[slot]:

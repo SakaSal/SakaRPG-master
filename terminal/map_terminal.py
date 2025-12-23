@@ -22,7 +22,6 @@ def main(stdscr):
 
     player = curses.newwin(1, 1, y, x)
     player.bkgd("@", curses.A_BOLD)
-    # player.addstr("@")
     player.refresh()
 
     while True:
@@ -49,7 +48,7 @@ def init_map(map_file, lines, cols, map_win, stdscr):
                 char = f.read(1)
                 map_win.addstr(char)
                 tiles[(x, y)] = char
-                #time.sleep(0.001)
+                time.sleep(0.00005)
                 stdscr.refresh()
                 map_win.refresh()
 

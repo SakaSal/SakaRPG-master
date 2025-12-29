@@ -8,6 +8,7 @@ Goblin_Bonus = {"intel": 7, "dex": 7, "fort": 7}
 class Goblin(Being):
     number_of_goblins = 0
     points = 10
+    name = "Goblin"
 
     def __init__(
         self,

@@ -8,6 +8,7 @@ Human_Bonus = {"intel": 7, "melee_skill": 9, "dex": 7}
 class Human(Being):
     number_of_humans = 0
     points = 10
+    name = "Human"
 
     def __init__(
         self,

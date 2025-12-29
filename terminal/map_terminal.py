@@ -18,18 +18,18 @@ def main(stdscr):
     map_win = curses.newwin(23, 64, 0, 40)
     init_map(map_file, 23, 64, map_win, stdscr)
 
-    x, y = 40, 0
+    x, y = 43, 2
 
-    player = curses.newwin(1, 1, y, x)
+    player = curses.newwin(2, 2, y, x)
     player.bkgd("@", curses.A_BOLD)
     player.refresh()
 
     while True:
         key = stdscr.getkey()
         if key == "KEY_LEFT":
-            x -= 1
+            x -= 2
         elif key == "KEY_RIGHT":
-            x += 1
+            x += 2
         elif key == "KEY_UP":
             y -= 1
         elif key == "KEY_DOWN":

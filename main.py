@@ -1,8 +1,10 @@
+import csv
 import curses
 import random
 import time
-import csv
 from curses import wrapper
+
+from tabulate import tabulate
 
 from gear import combat_knife, fist, machete
 from races import Goblin, Human
@@ -25,19 +27,33 @@ def welcome():
     team = []
     team.append(sal)
     team.append(jules)
-    
+
     while True:
         if team:
-            print("WELCOME \n 1: create NEW team. 2: save team. 3: check team. 4: quit\n")
+            print(
+                "WELCOME \n 1: create NEW team. 2: save team. 3: check team. 4: quit\n"
+            )
             choice = input("Enter choice: ")
-            
+
             if choice == "1":
                 team = create_team()
             elif choice == "2":
                 save_team(team)
             elif choice == "3":
-                for hero in team:
-                    print(hero.atribs)
+                with open("team.csv", "r") as teamcsv:
+                    reader = csv.reader(teamcsv)
+                    table = []
+                    for row in reader:
+                        table.append(row)
+                    print(
+                        tabulate(
+                            table,
+                            headers="firstrow",
+                            tablefmt="pretty",
+                            showindex="always",
+                        )
+                    )
+
             elif choice == "4":
                 break
         else:
@@ -49,8 +65,9 @@ def welcome():
             elif choice == "2":
                 break
 
+
 def save_team(team):
-    with open('team.csv', 'w', newline='') as save_file:
+    with open("team.csv", "w", newline="") as save_file:
         fieldnames = []
         for hero in team:
             for attribute in hero.atribs:
@@ -58,8 +75,11 @@ def save_team(team):
                     fieldnames.append(attribute)
         writer = csv.DictWriter(save_file, fieldnames=fieldnames)
         writer.writeheader()
+        for hero in team:
+            writer.writerow(hero.atribs)
         # https://docs.python.org/3/library/csv.html#csv.DictReader
-        
+
     pass
+
 
 main()

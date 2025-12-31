@@ -1,7 +1,6 @@
 import curses
+import random
 from curses import wrapper
-
-from ..notes.early_term_builds.fight import return_damage, roll_attacks
 
 
 def fight_terminal(stdscr, attacker, defender):
@@ -149,6 +148,34 @@ def draw_screen(attacker_hp, hp_color, defender_hp, fight_color, stdscr, fight_b
         fight_bar,
     ]
     refresh_all(screens)
+
+
+def roll_attacks(attacker, defender, type):
+    attacker_strikes = 0
+    defender_strikes = 0
+    if type == "melee":
+
+        for attacks in range(attacker.atribs["melee_attacks"]):
+            roll = random.randint(1, 10)
+            if roll > 10 - attacker.atribs["melee_hit"]:
+                attacker_strikes += 1
+        print(f"attacker has {attacker_strikes} successful strike(s)")
+
+        for attacks in range(defender.atribs["melee_attacks"]):
+            roll = random.randint(1, 10)
+            if roll > 10 - defender.atribs["melee_hit"]:
+                defender_strikes += 1
+        print(f"defender has {defender_strikes} successful strike(s)")
+
+    return attacker_strikes, defender_strikes
+
+
+def return_damage(attacker, defender, type):
+    if type == "melee":
+        attacker_damage = attacker.atribs["melee_damage"] - defender.atribs["deffense"]
+        defender_damage = defender.atribs["melee_damage"] - attacker.atribs["deffense"]
+
+    return attacker_damage, defender_damage
 
 
 """

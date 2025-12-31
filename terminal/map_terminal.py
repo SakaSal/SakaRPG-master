@@ -7,11 +7,11 @@ from pathlib import Path
 script_dir = Path(__file__).parent
 
 # Construct the absolute path to the map file
-map_file = script_dir.parent / "ASCII" / "maps" / "map1.txt"
+map_file = script_dir.parent / "assets" / "ASCII" / "maps" / "map1.txt"
 tiles = {}
 
 
-def main(stdscr):
+def map_terminal(stdscr):
 
     stdscr.clear()
 
@@ -28,12 +28,20 @@ def main(stdscr):
         key = stdscr.getkey()
         if key == "KEY_LEFT":
             x -= 2
+            if x <= 43:
+                x = 43
         elif key == "KEY_RIGHT":
             x += 2
+            if x >= 101:
+                x = 101
         elif key == "KEY_UP":
             y -= 1
+            if y <= 2:
+                y = 2
         elif key == "KEY_DOWN":
             y += 1
+            if y >= 20:
+                y = 20
         elif key == "Q":
             break
 
@@ -61,6 +69,3 @@ def draw_map(map_file, map_win, stdscr):
         map_win.addstr(char)
         stdscr.refresh()
         map_win.refresh()
-
-
-wrapper(main)

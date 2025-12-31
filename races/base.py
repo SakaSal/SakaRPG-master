@@ -37,6 +37,7 @@ class Being:
         self.hp = Base + self.fort + self.stren
         self.melee_hit = self.dex + self.melee_skill
         self.atribs = {
+            "name": self.name,
             "stren": self.stren,
             "intel": self.intel,
             "shoot_skill": self.shoot_skill,

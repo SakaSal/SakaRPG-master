@@ -8,30 +8,36 @@ from tabulate import tabulate
 
 from gear import combat_knife, fist, machete
 from races import Goblin, Human
-from terminal import create_team, fight_terminal
+from terminal import create_team, fight_terminal, map_terminal
 
 sal = Goblin("sal")
 jules = Human("jules")
+wasal = Human("wasal")
+wajules = Goblin("wajules")
 sal.equip_item(machete, "right_hand")
-jules.equip_item(fist, "right_hand")
+jules.equip_item(combat_knife, "right_hand")
+wasal.equip_item(combat_knife, "right_hand")
+wajules.equip_item(machete, "right_hand")
 # print(jules.atribs)
 # print(sal.points)
 
 
 def main():
     welcome()
-    # wrapper(fight_terminal, sal, jules)
 
 
 def welcome():
     team = []
     team.append(sal)
     team.append(jules)
+    team2 = []
+    team2.append(wasal)
+    team2.append(wajules)
 
     while True:
         if team:
             print(
-                "WELCOME \n 1: create NEW team. 2: save team. 3: check team. 4: quit\n"
+                "WELCOME \n 1: create NEW team. 2: save team. 3: check team. 4: play game. 5: fight demo 6: quit\n"
             )
             choice = input("Enter choice: ")
 
@@ -55,7 +61,12 @@ def welcome():
                     )
 
             elif choice == "4":
+                wrapper(map_terminal)
+            elif choice == "5":
+                wrapper(fight_terminal, sal, jules)
+            elif choice == "6":
                 break
+
         else:
             print("WELCOME \n 1: create team. 2: quit\n")
             choice = input("Enter choice: ")

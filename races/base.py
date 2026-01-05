@@ -55,7 +55,7 @@ class Being:
             "melee_attacks": 0,
         }
         self.gear = {"head": None, "right_hand": None, "left_hand": None}
-        print(f"{self.name} is born!")
+        # print(f"{self.name} is born!")
         self.number_of_beings += 1
         self.points = points
 

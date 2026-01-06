@@ -47,42 +47,47 @@ def map_terminal(stdscr):
 
         player.mvwin(y, x)
         stdscr.erase()
-        player_position(stdscr,x, y)
+        player_position(stdscr, x, y)
         draw_map(map_file, map_win, stdscr)
         player.refresh()
 
+
 def player_position(stdscr, x, y):
-    player_q1_x = player_q4_x = x-39
+    player_q1_x = player_q4_x = x - 39
     player_q1_y = player_q2_y = y
-    player_q2_x = player_q3_x = x-40
-    player_q3_y = player_q4_y = y+1
-    
+    player_q2_x = player_q3_x = x - 40
+    player_q3_y = player_q4_y = y + 1
+
     obstacle_q1_x, distance_q1_x = get_right_obstacle(player_q1_x, player_q1_y, 64)
     obstacle_q4_x, distance_q4_x = get_right_obstacle(player_q4_x, player_q4_y, 64)
     obstacle_q2_x, distance_q2_x = get_left_obstacle(player_q2_x, player_q2_y)
     obstacle_q3_x, distance_q3_x = get_left_obstacle(player_q3_x, player_q3_y)
-    
-    stdscr.addstr(f"{obstacle_q2_x}{distance_q2_x} ({player_q2_x},{player_q2_y}), ({player_q1_x},{player_q1_y}) {distance_q1_x}{obstacle_q1_x} \n{obstacle_q3_x}{distance_q3_x} ({player_q3_x},{player_q3_y}), ({player_q4_x},{player_q4_y}) {distance_q4_x}{obstacle_q4_x}")
-     
+
+    stdscr.addstr(
+        f"{obstacle_q2_x}{distance_q2_x} ({player_q2_x},{player_q2_y}), ({player_q1_x},{player_q1_y}) {distance_q1_x}{obstacle_q1_x} \n{obstacle_q3_x}{distance_q3_x} ({player_q3_x},{player_q3_y}), ({player_q4_x},{player_q4_y}) {distance_q4_x}{obstacle_q4_x}"
+    )
+
+
 def get_right_obstacle(quad_x, quad_y, maplength):
     distance = 0
-    for i in range(quad_x+1, maplength):
-        obstacle = tiles[i,quad_y]
+    for i in range(quad_x + 1, maplength):
+        obstacle = tiles[i, quad_y]
         distance += 1
         if obstacle != " ":
             break
     return obstacle, distance
+
 
 def get_left_obstacle(quad_x, quad_y):
     distance = 0
     for i in reversed(range(quad_x)):
-        obstacle = tiles[i,quad_y]
+        obstacle = tiles[i, quad_y]
         distance += 1
         if obstacle != " ":
             break
     return obstacle, distance
 
- 
+
 def init_map(map_file, lines, cols, map_win, stdscr):
     with open(map_file, "r") as f:
         for y in range(lines):
@@ -102,4 +107,3 @@ def draw_map(map_file, map_win, stdscr):
         map_win.addstr(char)
         stdscr.refresh()
         map_win.refresh()
-

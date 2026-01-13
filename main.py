@@ -8,7 +8,7 @@ from tabulate import tabulate
 
 from gear import combat_knife, fist, machete
 from races import Goblin, Human
-from terminal import create_team, fight_terminal, map_terminal
+from terminal import create_team, fight_terminal, map_terminal, map_terminal_resize
 
 sal = Goblin("sal")
 jules = Human("jules")
@@ -61,7 +61,8 @@ def welcome():
                     )
 
             elif choice == "4":
-                wrapper(map_terminal)
+                #wrapper(map_terminal)
+                wrapper(map_terminal_resize)
             elif choice == "5":
                 wrapper(fight_terminal, sal, jules)
             elif choice == "6":

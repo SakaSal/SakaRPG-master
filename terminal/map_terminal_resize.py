@@ -9,7 +9,8 @@ script_dir = Path(__file__).parent
 # Construct the absolute path to the map file
 map_file = script_dir.parent / "assets" / "ASCII" / "maps" / "map1.txt"
 tiles = {}
-
+curses.init_pair(1,curses.COLOR_BLACK,curses.COLOR_BLUE)
+blue = curses.color_pair(1)
 
 
 def map_terminal_resize(stdscr):
@@ -22,6 +23,7 @@ def map_terminal_resize(stdscr):
 
     x, y = map_win_x+1, 1
     los = curses.newwin(2,2,y, x+2)
+    los.bkgd(" ", blue)
     player = curses.newwin(2, 2, y, x)
     player.bkgd("@", curses.A_BOLD)
     player.refresh()
@@ -46,6 +48,8 @@ def map_terminal_resize(stdscr):
                 y = 20
         elif key == "KEY_RESIZE":
             height, width = stdscr.getmaxyx()
+        elif key == "f":
+            los.refresh()
         elif key == "Q":
             break
 

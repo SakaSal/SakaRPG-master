@@ -21,7 +21,7 @@ def map_terminal_resize(stdscr):
     init_map(map_file, lines, map_length, map_win, stdscr)
 
     x, y = map_win_x+1, 1
-
+    los = curses.newwin(2,2,y, x+2)
     player = curses.newwin(2, 2, y, x)
     player.bkgd("@", curses.A_BOLD)
     player.refresh()
@@ -71,6 +71,9 @@ def player_position(stdscr, x, y, height, width, map_win_x, map_length):
         f"{obstacle_q2_x}{distance_q2_x} ({player_q2_x},{player_q2_y}), ({player_q1_x},{player_q1_y}) {distance_q1_x}{obstacle_q1_x}\n\
 {obstacle_q3_x}{distance_q3_x} ({player_q3_x},{player_q3_y}), ({player_q4_x},{player_q4_y}) {distance_q4_x}{obstacle_q4_x}\n \
 {height}, {width}")
+    
+def los():
+    pass
 
 
 def get_right_obstacle(quad_x, quad_y, map_length):

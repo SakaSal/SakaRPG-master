@@ -3,23 +3,21 @@ import random
 from curses import wrapper
 
 
-
-
 def fight_terminal(stdscr, attacker, defender):
     # initiate colors
     # color for attacker
-    blue_black=curses.init_pair(1, curses.COLOR_BLUE, curses.COLOR_BLACK)
+    curses.init_pair(1, curses.COLOR_BLUE, curses.COLOR_BLACK)
     # color for defender
-    green_black= curses.init_pair(3, curses.COLOR_GREEN, curses.COLOR_BLACK)
+    curses.init_pair(3, curses.COLOR_GREEN, curses.COLOR_BLACK)
     # color for HP Bar
-    cyan_red=curses.init_pair(2, curses.COLOR_CYAN, curses.COLOR_RED)
+    curses.init_pair(2, curses.COLOR_CYAN, curses.COLOR_RED)
     # color for fight
-    red_yellow=curses.init_pair(4, curses.COLOR_RED, curses.COLOR_YELLOW)
+    curses.init_pair(4, curses.COLOR_RED, curses.COLOR_YELLOW)
     # set colors
-    attacker_color = blue_black
-    defender_color = green_black
-    hp_color = cyan_red
-    fight_color = red_yellow
+    attacker_color = curses.color_pair(1)
+    defender_color = curses.color_pair(3)
+    hp_color = curses.color_pair(2)
+    fight_color = curses.color_pair(4)
 
     # get HP
     attacker_hp = attacker.atribs["hp"]

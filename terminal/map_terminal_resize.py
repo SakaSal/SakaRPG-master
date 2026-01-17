@@ -9,21 +9,21 @@ script_dir = Path(__file__).parent
 # Construct the absolute path to the map file
 map_file = script_dir.parent / "assets" / "ASCII" / "maps" / "map1.txt"
 tiles = {}
-curses.init_pair(1,curses.COLOR_BLACK,curses.COLOR_BLUE)
-blue = curses.color_pair(1)
+# curses.init_pair(5, curses.COLOR_BLACK, curses.COLOR_BLUE)
+# blue = curses.color_pair(5)
 
 
 def map_terminal_resize(stdscr):
     height, width = stdscr.getmaxyx()
     lines, map_length = count_lines_and_chars(map_file)
     stdscr.clear()
-    map_win_x = int(width//3.5)
+    map_win_x = int(width // 3.5)
     map_win = curses.newwin(lines, map_length, 0, map_win_x)
     init_map(map_file, lines, map_length, map_win, stdscr)
 
-    x, y = map_win_x+1, 1
-    los = curses.newwin(2,2,y, x+2)
-    los.bkgd(" ", blue)
+    x, y = map_win_x + 1, 1
+    # los = curses.newwin(2, 2, y, x + 2)
+    # los.bkgd(" ", blue)
     player = curses.newwin(2, 2, y, x)
     player.bkgd("@", curses.A_BOLD)
     player.refresh()
@@ -32,8 +32,8 @@ def map_terminal_resize(stdscr):
         key = stdscr.getkey()
         if key == "KEY_LEFT":
             x -= 2
-            if x <= map_win_x+1:
-                x = map_win_x+1
+            if x <= map_win_x + 1:
+                x = map_win_x + 1
         elif key == "KEY_RIGHT":
             x += 2
             if x >= 101:
@@ -55,7 +55,7 @@ def map_terminal_resize(stdscr):
 
         player.mvwin(y, x)
         stdscr.erase()
-        player_position(stdscr, x, y,height, width, map_win_x, map_length)
+        player_position(stdscr, x, y, height, width, map_win_x, map_length)
         draw_map(map_file, map_win, stdscr)
         player.refresh()
 
@@ -66,16 +66,22 @@ def player_position(stdscr, x, y, height, width, map_win_x, map_length):
     player_q2_x = player_q3_x = x - map_win_x
     player_q3_y = player_q4_y = y + 1
 
-    obstacle_q1_x, distance_q1_x = get_right_obstacle(player_q1_x, player_q1_y, map_length)
-    obstacle_q4_x, distance_q4_x = get_right_obstacle(player_q4_x, player_q4_y, map_length)
+    obstacle_q1_x, distance_q1_x = get_right_obstacle(
+        player_q1_x, player_q1_y, map_length
+    )
+    obstacle_q4_x, distance_q4_x = get_right_obstacle(
+        player_q4_x, player_q4_y, map_length
+    )
     obstacle_q2_x, distance_q2_x = get_left_obstacle(player_q2_x, player_q2_y)
     obstacle_q3_x, distance_q3_x = get_left_obstacle(player_q3_x, player_q3_y)
 
     stdscr.addstr(
         f"{obstacle_q2_x}{distance_q2_x} ({player_q2_x},{player_q2_y}), ({player_q1_x},{player_q1_y}) {distance_q1_x}{obstacle_q1_x}\n\
 {obstacle_q3_x}{distance_q3_x} ({player_q3_x},{player_q3_y}), ({player_q4_x},{player_q4_y}) {distance_q4_x}{obstacle_q4_x}\n \
-{height}, {width}")
-    
+{height}, {width}"
+    )
+
+
 def los():
     pass
 
@@ -136,9 +142,8 @@ def count_lines_and_chars(filename):
                 char_count = len(line.rstrip("\r\n"))
                 print(f"Line {line_num}: {char_count} characters")
             total_lines = line_num  # Set total lines to the last enumerated line number
-        return total_lines, char_count+1
+        return total_lines, char_count + 1
     except FileNotFoundError:
         print(f"Error: The file '{filename}' was not found.")
     except Exception as e:
         print(f"An error occurred: {e}")
-

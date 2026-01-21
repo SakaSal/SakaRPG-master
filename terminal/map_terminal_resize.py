@@ -3,17 +3,19 @@ import time
 from curses import wrapper
 from pathlib import Path
 
+from .colors import colors
+
 # Get the directory of the current script
 script_dir = Path(__file__).parent
 
 # Construct the absolute path to the map file
 map_file = script_dir.parent / "assets" / "ASCII" / "maps" / "map1.txt"
 tiles = {}
-# curses.init_pair(5, curses.COLOR_BLACK, curses.COLOR_BLUE)
-# blue = curses.color_pair(5)
 
 
 def map_terminal_resize(stdscr):
+    color_dict = colors()
+    los_box = color_dict["black_blue"]
     height, width = stdscr.getmaxyx()
     lines, map_length = count_lines_and_chars(map_file)
     stdscr.clear()
@@ -22,8 +24,8 @@ def map_terminal_resize(stdscr):
     init_map(map_file, lines, map_length, map_win, stdscr)
 
     x, y = map_win_x + 1, 1
-    # los = curses.newwin(2, 2, y, x + 2)
-    # los.bkgd(" ", blue)
+    los = curses.newwin(2, 2, y, x + 2)
+    los.bkgd(" ", los_box)
     player = curses.newwin(2, 2, y, x)
     player.bkgd("@", curses.A_BOLD)
     player.refresh()

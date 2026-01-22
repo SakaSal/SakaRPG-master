@@ -29,6 +29,7 @@ def map_terminal_resize(stdscr):
     player = curses.newwin(2, 2, y, x)
     player.bkgd("@", curses.A_BOLD)
     player.refresh()
+    los.refresh()
 
     while True:
         key = stdscr.getkey()

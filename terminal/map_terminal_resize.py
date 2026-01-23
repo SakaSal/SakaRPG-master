@@ -39,8 +39,8 @@ def map_terminal_resize(stdscr):
                 x = map_win_x + 1
         elif key == "KEY_RIGHT":
             x += 2
-            if x >= 101:
-                x = 101
+            if x >= map_length:
+                x = map_length
         elif key == "KEY_UP":
             y -= 1
             if y <= 1:
@@ -83,6 +83,7 @@ def player_position(stdscr, x, y, height, width, map_win_x, map_length):
 {obstacle_q3_x}{distance_q3_x} ({player_q3_x},{player_q3_y}), ({player_q4_x},{player_q4_y}) {distance_q4_x}{obstacle_q4_x}\n \
 {height}, {width}"
     )
+    stdscr.addstr(f"\n map_win_x: {map_win_x},\n map_length: {map_length}")
 
 
 def los():

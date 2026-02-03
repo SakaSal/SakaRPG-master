@@ -39,8 +39,8 @@ def map_terminal_resize(stdscr):
                 x = map_win_x + 1
         elif key == "KEY_RIGHT":
             x += 2
-            if x >= map_length:
-                x = map_length
+            if x >= map_win_x+map_length-4:
+                x = map_win_x+map_length-4
         elif key == "KEY_UP":
             y -= 1
             if y <= 1:

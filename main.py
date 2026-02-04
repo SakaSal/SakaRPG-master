@@ -61,7 +61,7 @@ def welcome():
                     )
 
             elif choice == "4":
-                #wrapper(map_terminal)
+                # wrapper(map_terminal)
                 wrapper(map_terminal_resize)
             elif choice == "5":
                 wrapper(fight_terminal, sal, jules)

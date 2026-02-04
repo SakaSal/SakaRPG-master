@@ -24,12 +24,10 @@ def map_terminal_resize(stdscr):
     init_map(map_file, lines, map_length, map_win, stdscr)
 
     x, y = map_win_x + 1, 1
-    los = curses.newwin(2, 2, y, x + 2)
-    los.bkgd(" ", los_box)
+
     player = curses.newwin(2, 2, y, x)
     player.bkgd("@", curses.A_BOLD)
     player.refresh()
-    los.refresh()
 
     while True:
         key = stdscr.getkey()
@@ -39,8 +37,8 @@ def map_terminal_resize(stdscr):
                 x = map_win_x + 1
         elif key == "KEY_RIGHT":
             x += 2
-            if x >= map_win_x+map_length-4:
-                x = map_win_x+map_length-4
+            if x >= map_win_x + map_length - 4:
+                x = map_win_x + map_length - 4
         elif key == "KEY_UP":
             y -= 1
             if y <= 1:
@@ -59,8 +57,11 @@ def map_terminal_resize(stdscr):
         player.mvwin(y, x)
         stdscr.erase()
         player_position(stdscr, x, y, height, width, map_win_x, map_length)
+        los = curses.newwin(1, 1, y, x + 2)
+        los.bkgd(" ", los_box)
         draw_map(map_file, map_win, stdscr)
         player.refresh()
+        los.refresh()
 
 
 def player_position(stdscr, x, y, height, width, map_win_x, map_length):
@@ -97,7 +98,7 @@ def get_right_obstacle(quad_x, quad_y, map_length):
         distance += 1
         if obstacle != " ":
             break
-    return obstacle, distance
+    return obstacle, distance - 1
 
 
 def get_left_obstacle(quad_x, quad_y):
@@ -107,7 +108,7 @@ def get_left_obstacle(quad_x, quad_y):
         distance += 1
         if obstacle != " ":
             break
-    return obstacle, distance
+    return obstacle, distance - 1
 
 
 def init_map(map_file, lines, cols, map_win, stdscr):
